@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NexMart - Secure Account Login and Registration. Access your orders, wishlist, and student discounts.">
+  <title>Account Login & Register | NexMart Luxury Electronics</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css?v=6">
+
+  <style>
+    /* Dedicated Login Page Specific Styles */
+    .auth-page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .auth-page-header {
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(252, 251, 249, 0.95);
+      border-bottom: 1px solid var(--border-subtle);
+      backdrop-filter: var(--glass-backdrop);
+    }
+
+    .auth-page-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+    }
+
+    .auth-card-container {
+      width: 100%;
+      max-width: 1020px;
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 60px rgba(80, 60, 40, 0.12), 0 0 30px rgba(200, 122, 18, 0.08);
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      overflow: hidden;
+    }
+
+    /* Left Promo Showcase Banner */
+    .auth-showcase-side {
+      background: linear-gradient(145deg, #f7f1e6 0%, #ebe0ce 100%);
+      padding: 3.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid var(--border-subtle);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-showcase-side::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: -20%;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(200, 122, 18, 0.15), transparent 70%);
+      pointer-events: none;
+    }
+
+    .showcase-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(200, 122, 18, 0.12);
+      color: var(--accent-gold);
+      border: 1px solid rgba(200, 122, 18, 0.3);
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+      width: fit-content;
+    }
+
+    .showcase-title {
+      font-size: 2.2rem;
+      line-height: 1.2;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .showcase-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .perks-checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .perk-check-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.92rem;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .check-icon-circle {
+      width: 26px;
+      height: 26px;
+      border-radius: var(--radius-full);
+      background: rgba(5, 150, 105, 0.12);
+      color: var(--accent-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .showcase-quote-card {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      box-shadow: 0 4px 16px rgba(80, 60, 40, 0.06);
+    }
+
+    .quote-text {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      font-style: italic;
+      margin-bottom: 0.6rem;
+    }
+
+    .quote-author {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Right Form Side */
+    .auth-form-side {
+      padding: 3.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #ffffff;
+    }
+
+    .auth-tab-nav {
+      display: flex;
+      border-bottom: 2px solid var(--border-subtle);
+      margin-bottom: 1.75rem;
+    }
+
+    .auth-tab-trigger {
+      flex: 1;
+      padding: 0.85rem 0.5rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .auth-tab-trigger.active {
+      color: var(--accent-gold);
+      border-bottom-color: var(--accent-gold);
+    }
+
+    .input-icon-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon-wrap i.field-icon {
+      position: absolute;
+      left: 1rem;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      pointer-events: none;
+      transition: color var(--transition-fast);
+    }
+
+    .input-icon-wrap .form-control {
+      padding-left: 2.75rem;
+      padding-right: 2.75rem;
+      width: 100%;
+    }
+
+    .input-icon-wrap .form-control:focus + i.field-icon {
+      color: var(--accent-gold);
+    }
+
+    .btn-toggle-pwd {
+      position: absolute;
+      right: 0.85rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 0.25rem;
+      transition: color var(--transition-fast);
+    }
+
+    .btn-toggle-pwd:hover {
+      color: var(--text-primary);
+    }
+
+    .remember-forgot-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .remember-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+
+    .link-forgot {
+      color: var(--accent-gold);
+      font-weight: 600;
+      transition: text-decoration var(--transition-fast);
+    }
+
+    .link-forgot:hover {
+      text-decoration: underline;
+    }
+
+    .alert-box {
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.86rem;
+      margin-bottom: 1.25rem;
+      display: none;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .alert-box.alert-error {
+      display: flex;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: var(--accent-red);
+    }
+
+    .alert-box.alert-success {
+      display: flex;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: var(--accent-green);
+    }
+
+    /* Active User Logged In Card State */
+    .active-session-card {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      display: none;
+    }
+
+    .avatar-large {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-full);
+      background: var(--gradient-gold);
+      color: #ffffff;
+      font-size: 2.2rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      box-shadow: var(--shadow-gold);
+    }
+
+    @media (max-width: 860px) {
+      .auth-card-container {
+        grid-template-columns: 1fr;
+      }
+      .auth-showcase-side {
+        padding: 2.5rem 1.75rem;
+      }
+      .auth-form-side {
+        padding: 2.5rem 1.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-page-wrapper">
+    <!-- Header -->
+    <header class="auth-page-header">
+      <a href="index.html" class="brand-logo" title="Back to NexMart Store">
+        <div class="logo-icon-box">
+          <i class="bi bi-cart3"></i>
+        </div>
+        <div>
+          Nex<span class="brand-highlight">Mart</span>
+          <span class="brand-tag">PRO</span>
+        </div>
+      </a>
+
+      <div style="display:flex;align-items:center;gap:1.5rem;">
+        <span style="font-size:0.85rem;color:var(--text-muted);display:none;@media(min-width:640px){display:inline;}">
+          <i class="bi bi-shield-lock-fill text-gold"></i> 256-Bit SSL Encrypted
+        </span>
+        <a href="index.html" class="btn-secondary" style="padding:0.5rem 1.1rem;font-size:0.88rem;">
+          <i class="bi bi-arrow-left"></i> Return to Store
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="auth-page-body">
+      <div class="auth-card-container">
+        
+        <!-- Left Side: Brand Value & Academic Showcase -->
+        <div class="auth-showcase-side">
+          <div>
+            <div class="showcase-badge">
+              <i class="bi bi-mortarboard-fill"></i> College NTCC Project Evaluation
+            </div>
+            <h2 class="showcase-title">
+              Welcome to the World of <span class="brand-highlight">Flagship Electronics</span>
+            </h2>
+            <p class="showcase-desc">
+              Log in to manage your luxury cart, track high-speed courier shipments, unlock 20% college discounts, and instantly generate printable GST invoices.
+            </p>
+
+            <ul class="perks-checklist">
+              <li class="perk-check-item">
+                <div class="check-icon-circle"><i class="bi bi-check-lg"></i></div>
+                <span>Curated flagship hardware (Apple, Sony, Dell, DJI)</span>
+              </li>
+              <li class="perk-check-item">
+                <div class="check-icon-circle"><i class="bi bi-check-lg"></i></div>
+                <span>One-click checkout with interactive card simulation</span>
+              </li>
+              <li class="perk-check-item">
+                <div class="check-icon-circle"><i class="bi bi-check-lg"></i></div>
+                <span>Student discounts with coupon code <strong>COLLEGE20</strong></span>
+              </li>
+              <li class="perk-check-item">
+                <div class="check-icon-circle"><i class="bi bi-check-lg"></i></div>
+                <span>Local client-side relational storage persistence</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="showcase-quote-card">
+            <p class="quote-text">
+              "NexMart showcases modern HTML5, clean vanilla CSS design systems, and robust ES6 state architecture without bloated frameworks."
+            </p>
+            <div class="quote-author">
+              <i class="bi bi-award-fill"></i> Web Development Project Review
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Forms (Sign In & Register) -->
+        <div class="auth-form-side">
+          
+          <!-- State 1: Active User Session View -->
+          <div id="active-session-view" class="active-session-card">
+            <div id="session-avatar" class="avatar-large">A</div>
+            <h3 id="session-name" style="font-size:1.4rem;margin-bottom:0.25rem;">Aryan Sharma</h3>
+            <p id="session-email" class="text-secondary" style="font-size:0.9rem;margin-bottom:0.4rem;">student@college.edu</p>
+            <span id="session-role" style="display:inline-block;padding:0.25rem 0.75rem;background:rgba(200,122,18,0.12);color:var(--accent-gold);border-radius:var(--radius-full);font-size:0.8rem;font-weight:700;margin-bottom:2rem;">
+              Student Member
+            </span>
+
+            <div style="display:flex;flex-direction:column;gap:0.75rem;max-width:320px;margin:0 auto;">
+              <a href="index.html" class="btn-primary" style="justify-content:center;">
+                <i class="bi bi-cart3"></i> Continue Shopping
+              </a>
+              <button id="btn-switch-account" class="btn-secondary" style="justify-content:center;">
+                <i class="bi bi-arrow-repeat"></i> Switch Account
+              </button>
+              <button id="btn-session-logout" style="color:var(--accent-red);font-size:0.88rem;font-weight:700;margin-top:0.5rem;background:none;border:none;">
+                <i class="bi bi-box-arrow-right"></i> Sign Out Completely
+              </button>
+            </div>
+          </div>
+
+          <!-- State 2: Auth Forms Area -->
+          <div id="auth-forms-container">
+            <!-- Tabs -->
+            <div class="auth-tab-nav">
+              <button type="button" id="tab-btn-signin" class="auth-tab-trigger active">
+                <i class="bi bi-box-arrow-in-right"></i> Sign In
+              </button>
+              <button type="button" id="tab-btn-register" class="auth-tab-trigger">
+                <i class="bi bi-person-plus"></i> Create Account
+              </button>
+            </div>
+
+            <!-- Demo Test Accounts Box -->
+            <div class="demo-credentials-box" style="margin-bottom:1.5rem;">
+              <strong><i class="bi bi-key-fill text-gold"></i> 1-Click College Demo Accounts:</strong>
+              <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.45rem;">
+                <span class="demo-account-chip" id="demo-student-chip" title="Click to autofill student credentials">
+                  🎓 Aryan Sharma (Student)
+                </span>
+                <span class="demo-account-chip" id="demo-pro-chip" title="Click to autofill pro member credentials">
+                  💎 Priya Patel (Pro Member)
+                </span>
+              </div>
+            </div>
+
+            <!-- Feedback Alert Banner -->
+            <div id="auth-alert" class="alert-box">
+              <i id="alert-icon" class="bi bi-exclamation-circle-fill"></i>
+              <span id="alert-message">Error message text</span>
+            </div>
+
+            <!-- FORM 1: SIGN IN -->
+            <form id="form-login">
+              <div class="form-field">
+                <label for="input-login-email">Email Address</label>
+                <div class="input-icon-wrap">
+                  <input type="email" id="input-login-email" class="form-control" placeholder="name@college.edu" required autocomplete="username">
+                  <i class="bi bi-envelope field-icon"></i>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="input-login-pwd">Password</label>
+                <div class="input-icon-wrap">
+                  <input type="password" id="input-login-pwd" class="form-control" placeholder="Enter your password" required autocomplete="current-password">
+                  <i class="bi bi-lock field-icon"></i>
+                  <i class="bi bi-eye btn-toggle-pwd" id="toggle-login-pwd" title="Show/Hide password"></i>
+                </div>
+              </div>
+
+              <div class="remember-forgot-row">
+                <label class="remember-checkbox">
+                  <input type="checkbox" id="check-remember" checked style="accent-color:var(--accent-gold);">
+                  <span>Remember me</span>
+                </label>
+                <a href="javascript:void(0)" id="link-forgot-pwd" class="link-forgot">Forgot Password?</a>
+              </div>
+
+              <button type="submit" id="btn-submit-login" class="btn-primary" style="width:100%;justify-content:center;padding:0.9rem;">
+                <i class="bi bi-shield-check"></i> Sign In to NexMart
+              </button>
+            </form>
+
+            <!-- FORM 2: REGISTER -->
+            <form id="form-register" style="display:none;">
+              <div class="form-field">
+                <label for="input-reg-name">Full Name *</label>
+                <div class="input-icon-wrap">
+                  <input type="text" id="input-reg-name" class="form-control" placeholder="e.g. Rahul Verma" required>
+                  <i class="bi bi-person field-icon"></i>
+                </div>
+              </div>
+
+              <div class="form-group-row">
+                <div class="form-field">
+                  <label for="input-reg-email">Email Address *</label>
+                  <div class="input-icon-wrap">
+                    <input type="email" id="input-reg-email" class="form-control" placeholder="name@domain.com" required>
+                    <i class="bi bi-envelope field-icon"></i>
+                  </div>
+                </div>
+                <div class="form-field">
+                  <label for="input-reg-phone">Phone Number *</label>
+                  <div class="input-icon-wrap">
+                    <input type="tel" id="input-reg-phone" class="form-control" placeholder="+91 98765 00000" required>
+                    <i class="bi bi-telephone field-icon"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="input-reg-pwd">Create Password *</label>
+                <div class="input-icon-wrap">
+                  <input type="password" id="input-reg-pwd" class="form-control" placeholder="Minimum 6 characters" minlength="6" required>
+                  <i class="bi bi-lock field-icon"></i>
+                  <i class="bi bi-eye btn-toggle-pwd" id="toggle-reg-pwd" title="Show/Hide password"></i>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="input-reg-address">Delivery Address (Hostel / Home)</label>
+                <div class="input-icon-wrap">
+                  <input type="text" id="input-reg-address" class="form-control" placeholder="Flat/Room No., Street, City, State">
+                  <i class="bi bi-geo-alt field-icon"></i>
+                </div>
+              </div>
+
+              <div style="font-size:0.8rem;color:var(--text-muted);margin:1rem 0 1.25rem;display:flex;align-items:flex-start;gap:0.5rem;">
+                <input type="checkbox" id="check-terms" checked required style="accent-color:var(--accent-gold);margin-top:2px;">
+                <label for="check-terms">I agree to NexMart's Terms of Service and Privacy Policy for college evaluation.</label>
+              </div>
+
+              <button type="submit" id="btn-submit-register" class="btn-primary" style="width:100%;justify-content:center;padding:0.9rem;">
+                <i class="bi bi-person-check-fill"></i> Create Account & Sign In
+              </button>
+            </form>
+
+            <div style="text-align:center;margin-top:1.75rem;padding-top:1.25rem;border-top:1px solid var(--border-subtle);font-size:0.85rem;color:var(--text-secondary);">
+              Need to browse products first?
+              <a href="index.html" style="color:var(--accent-gold);font-weight:700;margin-left:4px;">
+                Explore Catalog &rarr;
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Footer Note -->
+    <footer style="text-align:center;padding:1.5rem;font-size:0.82rem;color:var(--text-muted);border-top:1px solid var(--border-subtle);background:#fbf7ef;">
+      &copy; 2026 NexMart Electronics Inc. &bull; College NTCC Academic Project &bull; Built with Semantic HTML5, Vanilla CSS & ES6 LocalStorage
+    </footer>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/store.js?v=6"></script>
+  <script>
+    // Login & Register Controller
+    document.addEventListener('DOMContentLoaded', () => {
+      // DOM Elements
+      const tabSignIn = document.getElementById('tab-btn-signin');
+      const tabRegister = document.getElementById('tab-btn-register');
+      const formLogin = document.getElementById('form-login');
+      const formRegister = document.getElementById('form-register');
+
+      const loginEmailInput = document.getElementById('input-login-email');
+      const loginPwdInput = document.getElementById('input-login-pwd');
+      const toggleLoginPwd = document.getElementById('toggle-login-pwd');
+
+      const regNameInput = document.getElementById('input-reg-name');
+      const regEmailInput = document.getElementById('input-reg-email');
+      const regPhoneInput = document.getElementById('input-reg-phone');
+      const regPwdInput = document.getElementById('input-reg-pwd');
+      const regAddressInput = document.getElementById('input-reg-address');
+      const toggleRegPwd = document.getElementById('toggle-reg-pwd');
+
+      const demoStudentChip = document.getElementById('demo-student-chip');
+      const demoProChip = document.getElementById('demo-pro-chip');
+
+      const authAlert = document.getElementById('auth-alert');
+      const alertMsg = document.getElementById('alert-message');
+      const alertIcon = document.getElementById('alert-icon');
+      const linkForgot = document.getElementById('link-forgot-pwd');
+
+      // Session UI
+      const activeSessionView = document.getElementById('active-session-view');
+      const authFormsContainer = document.getElementById('auth-forms-container');
+      const sessionAvatar = document.getElementById('session-avatar');
+      const sessionName = document.getElementById('session-name');
+      const sessionEmail = document.getElementById('session-email');
+      const sessionRole = document.getElementById('session-role');
+      const btnSwitchAccount = document.getElementById('btn-switch-account');
+      const btnSessionLogout = document.getElementById('btn-session-logout');
+
+      // Check current user state
+      function checkActiveUser() {
+        const user = Store.getCurrentUser();
+        const urlParams = new URLSearchParams(window.location.search);
+        const switchMode = urlParams.get('action') === 'switch';
+
+        if (user && !switchMode) {
+          activeSessionView.style.display = 'block';
+          authFormsContainer.style.display = 'none';
+
+          sessionAvatar.textContent = user.name ? user.name.charAt(0).toUpperCase() : 'U';
+          sessionName.textContent = user.name || 'Valued User';
+          sessionEmail.textContent = user.email || '';
+          sessionRole.textContent = user.role || 'Member';
+        } else {
+          activeSessionView.style.display = 'none';
+          authFormsContainer.style.display = 'block';
+        }
+      }
+
+      checkActiveUser();
+
+      // Tab Switching
+      tabSignIn.addEventListener('click', () => {
+        tabSignIn.classList.add('active');
+        tabRegister.classList.remove('active');
+        formLogin.style.display = 'block';
+        formRegister.style.display = 'none';
+        hideAlert();
+      });
+
+      tabRegister.addEventListener('click', () => {
+        tabRegister.classList.add('active');
+        tabSignIn.classList.remove('active');
+        formRegister.style.display = 'block';
+        formLogin.style.display = 'none';
+        hideAlert();
+      });
+
+      // Show/Hide Password Toggle
+      function setupPwdToggle(toggleBtn, input) {
+        toggleBtn.addEventListener('click', () => {
+          const isPwd = input.type === 'password';
+          input.type = isPwd ? 'text' : 'password';
+          toggleBtn.className = isPwd ? 'bi bi-eye-slash btn-toggle-pwd' : 'bi bi-eye btn-toggle-pwd';
+        });
+      }
+
+      setupPwdToggle(toggleLoginPwd, loginPwdInput);
+      setupPwdToggle(toggleRegPwd, regPwdInput);
+
+      // Demo Account Autofill
+      demoStudentChip.addEventListener('click', () => {
+        tabSignIn.click();
+        loginEmailInput.value = 'student@college.edu';
+        loginPwdInput.value = 'student123';
+        showAlert('success', 'Demo student credentials loaded! Click Sign In below.');
+      });
+
+      demoProChip.addEventListener('click', () => {
+        tabSignIn.click();
+        loginEmailInput.value = 'pro@nexmart.com';
+        loginPwdInput.value = 'pro123';
+        showAlert('success', 'Demo pro member credentials loaded! Click Sign In below.');
+      });
+
+      // Alerts
+      function showAlert(type, message) {
+        authAlert.className = `alert-box alert-${type}`;
+        alertMsg.textContent = message;
+        alertIcon.className = type === 'success' ? 'bi bi-check-circle-fill' : 'bi bi-exclamation-circle-fill';
+        authAlert.style.display = 'flex';
+      }
+
+      function hideAlert() {
+        authAlert.style.display = 'none';
+      }
+
+      // Login Form Submit
+      formLogin.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = loginEmailInput.value.trim();
+        const pwd = loginPwdInput.value.trim();
+
+        if (!email || !pwd) {
+          showAlert('error', 'Please fill in both email and password.');
+          return;
+        }
+
+        const res = Store.login(email, pwd);
+        if (res.success) {
+          showAlert('success', `Welcome back, ${res.user.name}! Redirecting to store...`);
+          Store.showToast('Login Successful', `Signed in as ${res.user.name}`, 'success');
+          
+          setTimeout(() => {
+            const redirectUrl = new URLSearchParams(window.location.search).get('redirect') || 'index.html';
+            window.location.href = redirectUrl;
+          }, 900);
+        } else {
+          showAlert('error', res.message || 'Invalid email or password. Please verify credentials.');
+        }
+      });
+
+      // Register Form Submit
+      formRegister.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = regNameInput.value.trim();
+        const email = regEmailInput.value.trim();
+        const phone = regPhoneInput.value.trim();
+        const pwd = regPwdInput.value.trim();
+        const address = regAddressInput.value.trim();
+
+        if (!name || !email || !pwd) {
+          showAlert('error', 'Please fill in all required fields.');
+          return;
+        }
+
+        if (pwd.length < 6) {
+          showAlert('error', 'Password must be at least 6 characters long.');
+          return;
+        }
+
+        const res = Store.register({ name, email, phone, password: pwd, address });
+        if (res.success) {
+          showAlert('success', `Account created successfully! Welcome, ${res.user.name}. Redirecting...`);
+          Store.showToast('Account Created', `Welcome to NexMart, ${res.user.name}!`, 'success');
+
+          setTimeout(() => {
+            const redirectUrl = new URLSearchParams(window.location.search).get('redirect') || 'index.html';
+            window.location.href = redirectUrl;
+          }, 1000);
+        } else {
+          showAlert('error', res.message || 'Registration failed. Email may already be in use.');
+        }
+      });
+
+      // Switch Account button
+      btnSwitchAccount.addEventListener('click', () => {
+        activeSessionView.style.display = 'none';
+        authFormsContainer.style.display = 'block';
+        tabSignIn.click();
+      });
+
+      // Session Logout button
+      btnSessionLogout.addEventListener('click', () => {
+        Store.logout();
+        Store.showToast('Logged Out', 'You have been safely signed out.', 'info');
+        activeSessionView.style.display = 'none';
+        authFormsContainer.style.display = 'block';
+        tabSignIn.click();
+        showAlert('success', 'Logged out successfully. You can now log into another account.');
+      });
+
+      // Forgot Password simulation
+      linkForgot.addEventListener('click', () => {
+        const email = loginEmailInput.value.trim();
+        if (email) {
+          showAlert('success', `Password reset token simulated: A recovery link has been sent to ${email}`);
+        } else {
+          showAlert('error', 'Please enter your email address in the field above first.');
+          loginEmailInput.focus();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

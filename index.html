@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NexMart - Premium Luxury Electronics Online Shopping Cart. Explore over 80+ smartphones, laptops, audio systems, smartwatches, tablets, cameras, and accessories with instant checkout and live tracking.">
+  <title>NexMart | Luxury Electronics & Online Shopping Cart</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css?v=7">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-content">
+      <div style="display:flex;align-items:center;">
+        <span class="announcement-badge">COLLEGE NTCC PROJECT</span>
+        <span>Use coupon <strong class="text-gold">COLLEGE20</strong> for 20% OFF on all premium electronics!</span>
+      </div>
+      <div class="top-links">
+        <a href="#catalog" class="top-link"><i class="bi bi-shield-check"></i> 100% Genuine Products</a>
+        <a href="#catalog" class="top-link"><i class="bi bi-truck"></i> Free Express Shipping</a>
+        <a href="javascript:void(0)" id="header-orders-link" class="top-link" onclick="if(window.openOrdersModal){window.openOrdersModal();}"><i class="bi bi-receipt"></i> Track Orders</a>
+        <a href="login.html" class="top-link" style="color:var(--accent-gold);font-weight:700;"><i class="bi bi-person-lock"></i> Login / Register</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="nav-main">
+        <!-- Brand Logo -->
+        <a href="index.html" class="brand-logo">
+          <div class="logo-icon-box">
+            <i class="bi bi-cart3"></i>
+          </div>
+          <div>
+            Nex<span class="brand-highlight">Mart</span>
+            <span class="brand-tag">PRO</span>
+          </div>
+        </a>
+
+        <!-- Global Search Bar -->
+        <div class="header-search">
+          <div class="search-wrapper">
+            <i class="bi bi-search text-muted" style="margin-right:0.6rem;font-size:1.1rem;"></i>
+            <input type="text" id="global-search-input" class="search-input" placeholder="Search across 80+ smartphones, laptops, audio gear, cameras..." autocomplete="off">
+            <button class="search-btn" title="Search catalog">
+              <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+          <!-- Live Search Autocomplete Dropdown -->
+          <div id="search-dropdown" class="search-results-dropdown"></div>
+        </div>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <!-- Wishlist -->
+          <button id="header-wishlist-btn" class="action-btn" title="View Wishlist">
+            <i class="bi bi-heart action-icon"></i>
+            <span id="header-wishlist-badge" class="badge-counter" style="display:none;">0</span>
+            <div class="action-label-box" style="display:none;@media(min-width:1024px){display:flex;}">
+              <span class="action-sub">Saved</span>
+              <span class="action-main">Wishlist</span>
+            </div>
+          </button>
+
+          <!-- User Account -->
+          <button id="header-user-btn" class="action-btn" title="Account Details">
+            <i class="bi bi-person-circle action-icon"></i>
+            <div class="action-label-box">
+              <span class="action-sub">Welcome</span>
+              <span id="header-user-name" class="action-main">Sign In</span>
+            </div>
+          </button>
+
+          <!-- Cart Drawer Button -->
+          <button id="header-cart-btn" class="action-btn" style="background:var(--gradient-gold);color:#ffffff;border:none;" title="Shopping Cart">
+            <i class="bi bi-bag-check-fill action-icon" style="color:#ffffff;"></i>
+            <span id="header-cart-badge" class="badge-counter" style="background:#ffffff;color:var(--accent-gold);box-shadow:0 2px 6px rgba(0,0,0,0.15);">0</span>
+            <div class="action-label-box">
+              <span class="action-sub" style="color:rgba(255,255,255,0.85);">Cart</span>
+              <span class="action-main" style="color:#ffffff;">Checkout</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary Categories Navigation Bar -->
+    <nav class="category-nav-bar">
+      <div class="container">
+        <ul id="category-nav-list" class="category-nav-list">
+          <!-- Populated dynamically by app.js -->
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-grid">
+        <!-- Hero Left Info -->
+        <div class="hero-content">
+          <div class="hero-tag">
+            <i class="bi bi-stars"></i> Next-Gen Electronics 2026 Collection
+          </div>
+          <h1 class="hero-title">
+            The Pinnacle of <br>
+            <span class="gradient-text">Personal Technology</span>
+          </h1>
+          <p class="hero-subtitle">
+            Immerse yourself in flagship performance. Browse curated high-end smartphones, titanium ultrabooks, audiophile acoustics, and cinematic creator gear.
+          </p>
+          <div class="hero-cta-group">
+            <a href="#catalog" class="btn-primary">
+              <i class="bi bi-lightning-charge-fill"></i> Explore 80+ Products
+            </a>
+            <button id="hero-btn-demo-cart" class="btn-secondary" onclick="if(window.openCartDrawer){window.openCartDrawer();}else{document.getElementById('header-cart-btn').click();}">
+              <i class="bi bi-bag-plus"></i> View Active Cart
+            </button>
+          </div>
+        </div>
+
+        <!-- Hero Right Visual Showcase -->
+        <div class="hero-visual">
+          <div class="hero-showcase-card">
+            <div class="hero-deal-badge">
+              <i class="bi bi-fire"></i> DEAL OF THE DAY &bull; SAVE 16%
+            </div>
+            <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=800&q=80" alt="Apple iPhone 15 Pro Max" class="hero-featured-image">
+            <div class="hero-deal-footer">
+              <div>
+                <div class="text-muted" style="font-size:0.8rem;text-transform:uppercase;font-weight:700;">Apple Flagship</div>
+                <div class="hero-deal-title">iPhone 15 Pro Max (256 GB)</div>
+                <div>
+                  <span class="hero-deal-price">₹1,34,900</span>
+                  <span class="hero-deal-old-price">₹1,59,900</span>
+                </div>
+              </div>
+              <button class="btn-primary" onclick="Store.addToCart(1, 1); Store.showToast('Added to Cart', 'iPhone 15 Pro Max added!', 'success');" style="padding:0.75rem 1.4rem;">
+                <i class="bi bi-cart-plus"></i> Buy Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust Perks Bar -->
+      <div class="hero-perks">
+        <div class="perk-item">
+          <div class="perk-icon-wrap"><i class="bi bi-truck"></i></div>
+          <div class="perk-info">
+            <h4>Free Express Shipping</h4>
+            <p>On orders above ₹1,000</p>
+          </div>
+        </div>
+        <div class="perk-item">
+          <div class="perk-icon-wrap"><i class="bi bi-shield-check"></i></div>
+          <div class="perk-info">
+            <h4>Official Warranty</h4>
+            <p>1-Year brand assurance</p>
+          </div>
+        </div>
+        <div class="perk-item">
+          <div class="perk-icon-wrap"><i class="bi bi-arrow-repeat"></i></div>
+          <div class="perk-info">
+            <h4>7-Day Free Replacement</h4>
+            <p>Hassle-free return policy</p>
+          </div>
+        </div>
+        <div class="perk-item">
+          <div class="perk-icon-wrap"><i class="bi bi-lock-fill"></i></div>
+          <div class="perk-info">
+            <h4>256-Bit Encrypted</h4>
+            <p>100% secure payment checkout</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flash Sale Strip with Live Countdown Timer -->
+  <div class="container">
+    <div class="flash-sale-strip">
+      <div class="flash-title-wrap">
+        <div class="flash-icon"><i class="bi bi-lightning-fill"></i></div>
+        <div>
+          <h3 style="font-size:1.35rem;margin-bottom:0.2rem;">Mega Tech Carnival Flash Sale!</h3>
+          <p style="color:var(--text-secondary);font-size:0.88rem;">
+            Extra 20% discount on orders using code <strong class="text-gold">COLLEGE20</strong>. Limited stock deals refresh daily.
+          </p>
+        </div>
+      </div>
+
+      <div class="flash-timer">
+        <span style="font-size:0.85rem;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Ends In:</span>
+        <div class="timer-box">
+          <div id="flash-hrs" class="timer-val">14</div>
+          <div class="timer-lbl">Hours</div>
+        </div>
+        <span style="font-size:1.5rem;font-weight:900;color:var(--accent-gold);">:</span>
+        <div class="timer-box">
+          <div id="flash-mins" class="timer-val">42</div>
+          <div class="timer-lbl">Mins</div>
+        </div>
+        <span style="font-size:1.5rem;font-weight:900;color:var(--accent-gold);">:</span>
+        <div class="timer-box">
+          <div id="flash-secs" class="timer-val">18</div>
+          <div class="timer-lbl">Secs</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Catalog Section -->
+  <main id="catalog" class="catalog-section">
+    <div class="container">
+      <!-- Section Header -->
+      <div class="catalog-header">
+        <div class="catalog-title-box">
+          <h2>Explore Electronics Catalog</h2>
+          <p id="products-count">Showing 80 of 80 luxury electronics</p>
+        </div>
+
+        <div class="catalog-controls">
+          <select id="sort-products-select" class="sort-select" title="Sort Products">
+            <option value="featured">Featured Picks</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Highest Rated</option>
+            <option value="discount">Biggest Discount %</option>
+            <option value="name">Product Name (A-Z)</option>
+          </select>
+
+          <div class="view-toggle-group">
+            <button id="btn-view-grid" class="view-btn active" title="Grid View">
+              <i class="bi bi-grid-3x3-gap-fill"></i>
+            </button>
+            <button id="btn-view-list" class="view-btn" title="List View">
+              <i class="bi bi-view-list"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Catalog Layout (Sidebar Filters + Products Grid) -->
+      <div class="catalog-layout">
+        <!-- Filter Sidebar -->
+        <aside class="filter-sidebar">
+          <div class="filter-header">
+            <h3><i class="bi bi-sliders text-gold"></i> Refine Search</h3>
+            <button id="btn-reset-filters" class="reset-filter-btn">Reset All</button>
+          </div>
+
+          <!-- Category Filter -->
+          <div class="filter-group">
+            <div class="filter-group-title">
+              <span>Categories</span>
+            </div>
+            <ul id="sidebar-category-list" class="filter-category-list">
+              <!-- Rendered by app.js -->
+            </ul>
+          </div>
+
+          <!-- Max Price Range Filter -->
+          <div class="filter-group">
+            <div class="filter-group-title">
+              <span>Max Price</span>
+              <span id="max-price-display" class="text-gold font-bold">₹4,50,000</span>
+            </div>
+            <div class="price-slider-wrap">
+              <input type="range" id="price-range-slider" class="price-slider" min="1000" max="450000" step="5000" value="450000">
+              <div class="price-values-box">
+                <span>₹1,000</span>
+                <span>₹4,50,000</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Brands Filter -->
+          <div class="filter-group">
+            <div class="filter-group-title">
+              <span>Popular Brands</span>
+            </div>
+            <div id="sidebar-brand-list" class="brands-checkbox-list">
+              <!-- Rendered by app.js -->
+            </div>
+          </div>
+
+          <!-- Minimum Rating Filter -->
+          <div class="filter-group">
+            <div class="filter-group-title">
+              <span>Customer Rating</span>
+            </div>
+            <div id="sidebar-rating-list" class="rating-filter-list">
+              <button class="rating-filter-btn active" data-rating="0">
+                <span>All Ratings</span>
+              </button>
+              <button class="rating-filter-btn" data-rating="4.8">
+                <span class="rating-stars">★★★★★</span>
+                <span>4.8 & Above</span>
+              </button>
+              <button class="rating-filter-btn" data-rating="4.5">
+                <span class="rating-stars">★★★★☆</span>
+                <span>4.5 & Above</span>
+              </button>
+              <button class="rating-filter-btn" data-rating="4.0">
+                <span class="rating-stars">★★★★☆</span>
+                <span>4.0 & Above</span>
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Products Grid Container -->
+        <section>
+          <div id="products-grid" class="product-grid">
+            <!-- Dynamically populated by app.js -->
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= Cart Drawer (Off-Canvas) ================= -->
+  <div id="drawer-backdrop" class="drawer-backdrop"></div>
+  <div id="cart-drawer" class="cart-drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">
+        <i class="bi bi-bag-check text-gold"></i>
+        <span>Shopping Cart</span>
+      </div>
+      <button id="btn-close-cart" class="btn-drawer-close" title="Close Cart">
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
+
+    <!-- Free Shipping Progress Tracker -->
+    <div class="free-shipping-meter">
+      <div id="shipping-progress-text" class="meter-text">
+        <span>Add ₹450 more for FREE Express Shipping</span>
+        <span>65%</span>
+      </div>
+      <div class="progress-track">
+        <div id="shipping-progress-bar" class="progress-bar-fill" style="width: 65%;"></div>
+      </div>
+    </div>
+
+    <!-- Cart Items Scroll Area -->
+    <div id="cart-items-container" class="drawer-body">
+      <!-- Populated dynamically by Store & App -->
+    </div>
+
+    <!-- Coupon Input Strip -->
+    <div class="drawer-coupon-box">
+      <div class="coupon-input-group">
+        <input type="text" id="coupon-code-input" class="coupon-input" placeholder="PROMO CODE (e.g. COLLEGE20)">
+        <button id="btn-apply-coupon" class="btn-apply-coupon">Apply</button>
+      </div>
+      <div id="applied-coupon-box"></div>
+    </div>
+
+    <!-- Order Summary & Checkout CTA -->
+    <div class="drawer-footer">
+      <div class="summary-line">
+        <span>MRP Subtotal:</span>
+        <span id="cart-subtotal">₹0</span>
+      </div>
+      <div class="summary-line" style="color:var(--accent-green);">
+        <span>Catalog Savings:</span>
+        <span id="cart-savings">-₹0</span>
+      </div>
+      <div id="cart-discount-row" class="summary-line" style="color:var(--accent-gold);display:none;">
+        <span>Promo Coupon:</span>
+        <span id="cart-discount">-₹0</span>
+      </div>
+      <div class="summary-line">
+        <span>Shipping Charges:</span>
+        <span id="cart-shipping">FREE</span>
+      </div>
+      <div class="summary-line total-line">
+        <span>Total Payable:</span>
+        <span id="cart-total">₹0</span>
+      </div>
+
+      <button id="btn-start-checkout" class="btn-checkout-now">
+        <i class="bi bi-shield-lock-fill"></i> Proceed to Checkout
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= Quick View Modal ================= -->
+  <div id="quick-view-modal" class="modal-overlay">
+    <div class="modal-container">
+      <button class="btn-modal-close" title="Close"><i class="bi bi-x"></i></button>
+      <div id="quick-view-content">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 4-Step Interactive Checkout Modal ================= -->
+  <div id="checkout-modal" class="modal-overlay">
+    <div class="modal-container checkout-modal-container">
+      <button class="btn-modal-close" title="Close"><i class="bi bi-x"></i></button>
+      
+      <!-- Stepper Navigation -->
+      <div class="stepper-header">
+        <div class="step-node active" data-step="1">
+          <div class="step-circle">1</div>
+          <div class="step-label">Shipping</div>
+        </div>
+        <div class="step-node" data-step="2">
+          <div class="step-circle">2</div>
+          <div class="step-label">Delivery</div>
+        </div>
+        <div class="step-node" data-step="3">
+          <div class="step-circle">3</div>
+          <div class="step-label">Payment</div>
+        </div>
+        <div class="step-node" data-step="4">
+          <div class="step-circle">4</div>
+          <div class="step-label">Confirmation</div>
+        </div>
+      </div>
+
+      <!-- Checkout Step Panels Grid -->
+      <div class="checkout-grid">
+        <!-- Left Side: Interactive Step Forms -->
+        <div class="checkout-form-area">
+          
+          <!-- STEP 1: Address & Contact Details -->
+          <div class="checkout-step-panel" id="checkout-panel-1">
+            <h3 style="margin-bottom:1.25rem;">Shipping & Contact Information</h3>
+            
+            <div class="form-group-row">
+              <div class="form-field">
+                <label for="checkout-name">Full Name *</label>
+                <input type="text" id="checkout-name" class="form-control" placeholder="e.g. Aryan Sharma" required>
+              </div>
+              <div class="form-field">
+                <label for="checkout-phone">Mobile Phone *</label>
+                <input type="tel" id="checkout-phone" class="form-control" placeholder="+91 98765 43210" required>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="checkout-email">Email Address (For Tax Invoice) *</label>
+              <input type="email" id="checkout-email" class="form-control" placeholder="name@domain.com" required>
+            </div>
+
+            <div class="form-field">
+              <label for="checkout-address">Delivery Street Address *</label>
+              <input type="text" id="checkout-address" class="form-control" placeholder="House/Flat No., Building, Street Name, Area" required>
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-field">
+                <label for="checkout-city">City *</label>
+                <input type="text" id="checkout-city" class="form-control" placeholder="e.g. New Delhi" required>
+              </div>
+              <div class="form-field">
+                <label for="checkout-state">State *</label>
+                <input type="text" id="checkout-state" class="form-control" placeholder="e.g. Delhi" required>
+              </div>
+            </div>
+
+            <div class="form-field" style="max-width:240px;">
+              <label for="checkout-pincode">PIN Code *</label>
+              <input type="text" id="checkout-pincode" class="form-control" placeholder="e.g. 110025" maxlength="6" required>
+            </div>
+          </div>
+
+          <!-- STEP 2: Delivery Speed Options -->
+          <div class="checkout-step-panel" id="checkout-panel-2" style="display:none;">
+            <h3 style="margin-bottom:0.5rem;">Choose Shipping Method</h3>
+            <p class="text-secondary" style="font-size:0.88rem;margin-bottom:1.5rem;">Select your preferred transit speed for your luxury package.</p>
+
+            <div class="shipping-options-list">
+              <label class="shipping-card selected">
+                <div style="display:flex;align-items:center;gap:1rem;">
+                  <input type="radio" name="shipping_method" value="standard" checked style="accent-color:var(--accent-gold);">
+                  <div>
+                    <div style="font-weight:700;font-size:1rem;">Standard Express Delivery</div>
+                    <div class="text-secondary" style="font-size:0.82rem;">Delivered within 2 to 3 Business Days via Air</div>
+                  </div>
+                </div>
+                <div style="font-weight:800;color:var(--accent-green);">FREE</div>
+              </label>
+
+              <label class="shipping-card">
+                <div style="display:flex;align-items:center;gap:1rem;">
+                  <input type="radio" name="shipping_method" value="express" style="accent-color:var(--accent-gold);">
+                  <div>
+                    <div style="font-weight:700;font-size:1rem;">Priority Next-Day Air Flight</div>
+                    <div class="text-secondary" style="font-size:0.82rem;">Guaranteed Delivery by Tomorrow 8:00 PM</div>
+                  </div>
+                </div>
+                <div style="font-weight:800;color:var(--accent-gold);">₹199</div>
+              </label>
+
+              <label class="shipping-card">
+                <div style="display:flex;align-items:center;gap:1rem;">
+                  <input type="radio" name="shipping_method" value="sameday" style="accent-color:var(--accent-gold);">
+                  <div>
+                    <div style="font-weight:700;font-size:1rem;">Ultra-Priority Same Day Courier</div>
+                    <div class="text-secondary" style="font-size:0.82rem;">Direct van dispatched within 4 hours (Metro regions)</div>
+                  </div>
+                </div>
+                <div style="font-weight:800;color:var(--accent-gold);">₹499</div>
+              </label>
+            </div>
+          </div>
+
+          <!-- STEP 3: Payment Gateway Simulation -->
+          <div class="checkout-step-panel" id="checkout-panel-3" style="display:none;">
+            <h3 style="margin-bottom:1rem;">Select Payment Method</h3>
+
+            <!-- Payment Method Navigation Tabs -->
+            <div class="payment-tabs">
+              <button type="button" class="pay-tab-btn active" data-method="card">
+                <i class="bi bi-credit-card-2-front"></i> Card
+              </button>
+              <button type="button" class="pay-tab-btn" data-method="upi">
+                <i class="bi bi-qr-code-scan"></i> UPI / QR
+              </button>
+              <button type="button" class="pay-tab-btn" data-method="netbanking">
+                <i class="bi bi-bank"></i> Net Banking
+              </button>
+              <button type="button" class="pay-tab-btn" data-method="cod">
+                <i class="bi bi-cash-stack"></i> Cash on Delivery
+              </button>
+            </div>
+
+            <!-- Tab 1: Interactive Live Credit Card Simulator -->
+            <div id="pay-method-card" class="payment-method-content">
+              <!-- Live 3D Visual Card -->
+              <div class="credit-card-preview">
+                <div class="card-top-row">
+                  <div class="card-chip"></div>
+                  <div style="font-size:1.4rem;font-weight:900;color:var(--accent-gold);letter-spacing:0.05em;">VISA</div>
+                </div>
+                <div id="display-card-number" class="card-number-display">•••• •••• •••• ••••</div>
+                <div class="card-bottom-row">
+                  <div>
+                    <div class="card-sub-label">CARDHOLDER</div>
+                    <div id="display-card-name" class="card-holder-name">YOUR NAME HERE</div>
+                  </div>
+                  <div>
+                    <div class="card-sub-label">EXPIRES</div>
+                    <div id="display-card-expiry" style="font-weight:700;">MM/YY</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Inputs -->
+              <div class="form-field">
+                <label>Card Number</label>
+                <input type="text" id="card-number-input" class="form-control" placeholder="4111 2222 3333 4444" maxlength="19">
+              </div>
+              <div class="form-field">
+                <label>Cardholder Name</label>
+                <input type="text" id="card-name-input" class="form-control" placeholder="Name as displayed on card">
+              </div>
+              <div class="form-group-row">
+                <div class="form-field">
+                  <label>Expiry Date</label>
+                  <input type="text" id="card-expiry-input" class="form-control" placeholder="MM/YY" maxlength="5">
+                </div>
+                <div class="form-field">
+                  <label>Security Code (CVV)</label>
+                  <input type="password" id="card-cvv-input" class="form-control" placeholder="•••" maxlength="4">
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 2: UPI / QR Code -->
+            <div id="pay-method-upi" class="payment-method-content" style="display:none;">
+              <div class="upi-box">
+                <h4 style="font-size:1.1rem;margin-bottom:0.25rem;">Scan & Pay via any UPI App</h4>
+                <p class="text-secondary" style="font-size:0.85rem;">Google Pay &bull; PhonePe &bull; Paytm &bull; BHIM</p>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=nexmart.store@icici&pn=NexMart%20Store&cu=INR" alt="UPI QR Code" class="qr-code-img">
+                <div style="font-family:monospace;font-size:0.95rem;color:var(--accent-gold);margin-top:0.5rem;">
+                  UPI ID: nexmart.store@icici
+                </div>
+                <div style="margin-top:1rem;color:var(--text-muted);font-size:0.8rem;">
+                  <i class="bi bi-clock-history"></i> QR Code valid for next 10 minutes
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 3: Net Banking -->
+            <div id="pay-method-netbanking" class="payment-method-content" style="display:none;">
+              <p class="text-secondary" style="font-size:0.88rem;margin-bottom:1rem;">Select your banking partner to proceed with secure redirect gateway:</p>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+                <label class="shipping-card" style="padding:0.75rem;">
+                  <input type="radio" name="bank" value="hdfc" checked style="accent-color:var(--accent-gold);">
+                  <span style="font-weight:700;">HDFC Bank</span>
+                </label>
+                <label class="shipping-card" style="padding:0.75rem;">
+                  <input type="radio" name="bank" value="icici" style="accent-color:var(--accent-gold);">
+                  <span style="font-weight:700;">ICICI Bank</span>
+                </label>
+                <label class="shipping-card" style="padding:0.75rem;">
+                  <input type="radio" name="bank" value="sbi" style="accent-color:var(--accent-gold);">
+                  <span style="font-weight:700;">State Bank of India</span>
+                </label>
+                <label class="shipping-card" style="padding:0.75rem;">
+                  <input type="radio" name="bank" value="axis" style="accent-color:var(--accent-gold);">
+                  <span style="font-weight:700;">Axis Bank</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Tab 4: Cash on Delivery -->
+            <div id="pay-method-cod" class="payment-method-content" style="display:none;">
+              <div style="padding:1.5rem;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-md);text-align:center;">
+                <i class="bi bi-cash-coin" style="font-size:2.5rem;color:var(--accent-gold);margin-bottom:0.75rem;display:inline-block;"></i>
+                <h4>Pay with Cash or Card on Delivery</h4>
+                <p class="text-secondary" style="font-size:0.85rem;margin:0.5rem 0 1rem;">
+                  Our courier executive carries a mobile POS machine for UPI/Card tap or cash payments at your doorstep.
+                </p>
+                <div style="display:inline-block;padding:0.4rem 1rem;background:rgba(16,185,129,0.12);border-radius:var(--radius-full);color:var(--accent-green);font-size:0.8rem;font-weight:700;">
+                  <i class="bi bi-check-circle"></i> OTP Verified Secure Delivery Enabled
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 4: Success & Invoice Screen -->
+          <div class="checkout-step-panel" id="checkout-panel-4" style="display:none;">
+            <div class="order-success-card">
+              <div class="success-check-icon">
+                <i class="bi bi-check-lg"></i>
+              </div>
+              <h2 style="font-size:2rem;margin-bottom:0.5rem;">Payment Confirmed!</h2>
+              <p class="text-secondary">Your order has been placed and booked into our automated fulfillment center.</p>
+
+              <div class="order-id-badge" id="success-order-id">NEX-000000</div>
+
+              <!-- Visual Live Delivery Tracker -->
+              <div class="order-tracker-timeline">
+                <div class="timeline-step active">
+                  <div class="timeline-dot"><i class="bi bi-check2"></i></div>
+                  <span style="font-size:0.75rem;font-weight:700;">Confirmed</span>
+                </div>
+                <div class="timeline-step active">
+                  <div class="timeline-dot"><i class="bi bi-box-seam"></i></div>
+                  <span style="font-size:0.75rem;font-weight:700;">Packed</span>
+                </div>
+                <div class="timeline-step">
+                  <div class="timeline-dot"><i class="bi bi-airplane"></i></div>
+                  <span style="font-size:0.75rem;font-weight:700;">Shipped</span>
+                </div>
+                <div class="timeline-step">
+                  <div class="timeline-dot"><i class="bi bi-truck"></i></div>
+                  <span style="font-size:0.75rem;font-weight:700;">Out for Delivery</span>
+                </div>
+                <div class="timeline-step">
+                  <div class="timeline-dot"><i class="bi bi-house-door"></i></div>
+                  <span style="font-size:0.75rem;font-weight:700;">Delivered</span>
+                </div>
+              </div>
+
+              <!-- Order Summary Meta Box -->
+              <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:1.25rem;text-align:left;font-size:0.88rem;margin:1.5rem 0;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:0.4rem;">
+                  <span class="text-muted">Estimated Delivery:</span>
+                  <strong id="success-delivery-date" class="text-gold">Wed, Oct 21</strong>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:0.4rem;">
+                  <span class="text-muted">Tracking Airway Bill:</span>
+                  <span id="success-tracking-no" style="font-family:monospace;">TRK98234129</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:0.4rem;">
+                  <span class="text-muted">Total Paid:</span>
+                  <strong id="success-total-paid">₹0</strong>
+                </div>
+                <div style="display:flex;justify-content:space-between;">
+                  <span class="text-muted">Deliver To:</span>
+                  <span id="success-address-text" style="max-width:280px;text-align:right;">Aryan Sharma, Boys Hostel 4</span>
+                </div>
+              </div>
+
+              <!-- Action CTAs -->
+              <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+                <button id="btn-download-invoice" class="btn-primary">
+                  <i class="bi bi-file-earmark-arrow-down"></i> Print / Download Tax Invoice
+                </button>
+                <button class="btn-secondary" onclick="document.getElementById('checkout-modal').classList.remove('active');document.body.style.overflow='';window.scrollTo({top:0,behavior:'smooth'});">
+                  <i class="bi bi-bag"></i> Continue Shopping
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Checkout Stepper Navigation Buttons -->
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border-subtle);">
+            <button id="btn-back-step" class="btn-secondary" style="display:none;">
+              <i class="bi bi-arrow-left"></i> Back
+            </button>
+            <button id="btn-proceed-step" class="btn-primary" style="margin-left:auto;">
+              Continue to Shipping <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Side: Order Summary Card -->
+        <div class="checkout-summary-area" style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:1.75rem;height:fit-content;">
+          <h4 style="margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;">
+            <i class="bi bi-receipt text-gold"></i> Order Summary
+          </h4>
+
+          <div id="checkout-order-items" style="max-height:240px;overflow-y:auto;margin-bottom:1.25rem;">
+            <!-- Rendered by app.js -->
+          </div>
+
+          <div style="border-top:1px solid var(--border-subtle);padding-top:1rem;font-size:0.9rem;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;color:var(--text-secondary);">
+              <span>Items Subtotal:</span>
+              <span id="checkout-subtotal">₹0</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;color:var(--text-secondary);">
+              <span>Shipping Freight:</span>
+              <span id="checkout-shipping">FREE</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;color:var(--accent-green);">
+              <span>Promotional Discount:</span>
+              <span id="checkout-discount">-₹0</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding-top:0.75rem;border-top:1px solid var(--border-subtle);margin-top:0.75rem;font-size:1.2rem;font-weight:900;">
+              <span>Grand Total:</span>
+              <span id="checkout-grand-total" class="text-gold">₹0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= Authentication Modal (Login / Register) ================= -->
+  <div id="auth-modal" class="modal-overlay">
+    <div class="modal-container auth-modal-container">
+      <button class="btn-modal-close" title="Close"><i class="bi bi-x"></i></button>
+
+      <div class="auth-tabs">
+        <button id="tab-login" class="auth-tab-btn active">Sign In</button>
+        <button id="tab-register" class="auth-tab-btn">Create Account</button>
+      </div>
+
+      <!-- Demo Accounts 1-Click Login Strip -->
+      <div class="demo-credentials-box">
+        <strong><i class="bi bi-key-fill text-gold"></i> 1-Click College Demo Test Accounts:</strong><br>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.35rem;">
+          <span class="demo-account-chip" data-email="student@college.edu" data-pass="student123">
+            🎓 Aryan Sharma (Student)
+          </span>
+          <span class="demo-account-chip" data-email="pro@nexmart.com" data-pass="pro123">
+            💎 Priya Patel (Pro Member)
+          </span>
+        </div>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form">
+        <div class="form-field">
+          <label for="login-email">Email Address</label>
+          <input type="email" id="login-email" class="form-control" placeholder="student@college.edu" required>
+        </div>
+        <div class="form-field">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%;margin-top:1rem;justify-content:center;">
+          <i class="bi bi-box-arrow-in-right"></i> Sign In to NexMart
+        </button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="register-form" style="display:none;">
+        <div class="form-field">
+          <label for="reg-name">Full Name</label>
+          <input type="text" id="reg-name" class="form-control" placeholder="John Doe" required>
+        </div>
+        <div class="form-field">
+          <label for="reg-email">Email Address</label>
+          <input type="email" id="reg-email" class="form-control" placeholder="john@example.com" required>
+        </div>
+        <div class="form-field">
+          <label for="reg-password">Create Password</label>
+          <input type="password" id="reg-password" class="form-control" placeholder="At least 6 characters" minlength="6" required>
+        </div>
+        <div class="form-field">
+          <label for="reg-phone">Phone Number</label>
+          <input type="tel" id="reg-phone" class="form-control" placeholder="+91 99999 00000" required>
+        </div>
+        <div class="form-field">
+          <label for="reg-address">Delivery Address</label>
+          <input type="text" id="reg-address" class="form-control" placeholder="Room/Hostel, City, State" required>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%;margin-top:1rem;justify-content:center;">
+          <i class="bi bi-person-plus-fill"></i> Register Account
+        </button>
+      </form>
+
+      <div style="text-align:center;margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border-subtle);font-size:0.85rem;">
+        <span class="text-secondary">Prefer a dedicated full page? </span>
+        <a href="login.html" style="color:var(--accent-gold);font-weight:700;">
+          Open Login Page &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= Past Orders Modal ================= -->
+  <div id="orders-modal" class="modal-overlay">
+    <div class="modal-container" style="max-width:750px;padding:2.5rem;">
+      <button class="btn-modal-close" title="Close"><i class="bi bi-x"></i></button>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;">
+        <h3 style="display:flex;align-items:center;gap:0.6rem;margin:0;">
+          <i class="bi bi-geo-alt-fill text-gold"></i> Live Order Tracking & Invoices
+        </h3>
+        <div style="position:relative;width:100%;max-width:320px;">
+          <input type="text" id="order-search-input" class="form-control" placeholder="Search Order ID or AWB..." style="padding-left:2.5rem;padding-top:0.45rem;padding-bottom:0.45rem;font-size:0.85rem;">
+          <i class="bi bi-search" style="position:absolute;left:0.85rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:0.85rem;"></i>
+        </div>
+      </div>
+      <div id="orders-list-container">
+        <!-- Rendered by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container"></div>
+
+  <!-- ================= Footer ================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Col 1: Brand Info -->
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo" style="margin-bottom:1rem;display:inline-flex;">
+            <div class="logo-icon-box"><i class="bi bi-cart3"></i></div>
+            <div>Nex<span class="brand-highlight">Mart</span></div>
+          </a>
+          <p>
+            NexMart is a cutting-edge college project demonstrating state-of-the-art web development, luxury UX design, client-side localStorage relational database, and end-to-end checkout pipeline.
+          </p>
+          <div style="display:flex;gap:0.75rem;font-size:1.2rem;color:var(--text-secondary);">
+            <a href="javascript:void(0)" class="top-link"><i class="bi bi-github"></i></a>
+            <a href="javascript:void(0)" class="top-link"><i class="bi bi-linkedin"></i></a>
+            <a href="javascript:void(0)" class="top-link"><i class="bi bi-twitter-x"></i></a>
+            <a href="javascript:void(0)" class="top-link"><i class="bi bi-instagram"></i></a>
+          </div>
+        </div>
+
+        <!-- Col 2: Categories -->
+        <div class="footer-links">
+          <h4>Top Categories</h4>
+          <ul>
+            <li><a href="#catalog">Smartphones & Foldables</a></li>
+            <li><a href="#catalog">OLED Laptops & Ultrabooks</a></li>
+            <li><a href="#catalog">Hi-Res Audio & ANC Headphones</a></li>
+            <li><a href="#catalog">Adventure Smartwatches</a></li>
+            <li><a href="#catalog">Mirrorless Cameras & 8K Drones</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Customer Care -->
+        <div class="footer-links">
+          <h4>Customer Experience</h4>
+          <ul>
+            <li><a href="login.html">Sign In / Register Account</a></li>
+            <li><a href="javascript:void(0)" onclick="document.getElementById('header-orders-link').click();">Track Order Status</a></li>
+            <li><a href="javascript:void(0)">7-Day Replacement Policy</a></li>
+            <li><a href="javascript:void(0)">GST Invoice & Warranty Registration</a></li>
+            <li><a href="javascript:void(0)">Student Discount Program</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Project Info -->
+        <div class="footer-links">
+          <h4>College NTCC Project</h4>
+          <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:1rem;line-height:1.6;">
+            <strong>Domain:</strong> Web Development & E-Commerce<br>
+            <strong>Stack:</strong> Semantic HTML5, Vanilla Modern CSS, ES6+ JS, LocalStorage Engine<br>
+            <strong>Features:</strong> 80+ Products, Search Autocomplete, Multi-Filter, Responsive Cart, 4-Step Checkout, Printable Invoices.
+          </p>
+          <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:var(--accent-gold);">
+            <i class="bi bi-mortarboard-fill"></i> Academic Evaluation Edition
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 NexMart Electronics Inc. Built for College NTCC Project Submission.</div>
+        <div style="display:flex;gap:1.5rem;">
+          <span>Privacy Policy</span>
+          <span>Terms of Service</span>
+          <span>Security Architecture</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data/products.js?v=7"></script>
+  <script src="js/store.js?v=7"></script>
+  <script src="js/app.js?v=7"></script>
+</body>
+</html>
