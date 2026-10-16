@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=8">
+  <link rel="stylesheet" href="css/style.css?v=9">
 </head>
 <body>
 
@@ -927,9 +927,39 @@
     </div>
   </footer>
 
+  <!-- Fixed Mobile App Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav">
+    <a href="#" class="mobile-nav-item active" id="mob-nav-home" title="Home">
+      <i class="bi bi-house-door-fill"></i>
+      <span>Home</span>
+    </a>
+    <button class="mobile-nav-item" id="mob-nav-filter" title="Filter & Categories">
+      <i class="bi bi-funnel"></i>
+      <span>Filter</span>
+    </button>
+    <button class="mobile-nav-item" id="mob-nav-wishlist" title="Saved Wishlist">
+      <div class="mob-icon-wrap">
+        <i class="bi bi-heart"></i>
+        <span id="mob-wishlist-badge" class="mob-nav-badge" style="display:none;">0</span>
+      </div>
+      <span>Wishlist</span>
+    </button>
+    <button class="mobile-nav-item" id="mob-nav-cart" title="Shopping Cart">
+      <div class="mob-icon-wrap">
+        <i class="bi bi-bag"></i>
+        <span id="mob-cart-badge" class="mob-nav-badge" style="display:none;">0</span>
+      </div>
+      <span>Cart</span>
+    </button>
+    <button class="mobile-nav-item" id="mob-nav-account" title="My Account">
+      <i class="bi bi-person"></i>
+      <span>Account</span>
+    </button>
+  </nav>
+
   <!-- Scripts -->
-  <script src="data/products.js?v=7"></script>
-  <script src="js/store.js?v=7"></script>
-  <script src="js/app.js?v=7"></script>
+  <script src="data/products.js?v=9"></script>
+  <script src="js/store.js?v=9"></script>
+  <script src="js/app.js?v=9"></script>
 </body>
 </html>

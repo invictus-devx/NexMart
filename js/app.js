@@ -129,6 +129,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const wishlistCount = Store.getWishlist().length;
     DOM.wishlistBadge.textContent = wishlistCount;
     DOM.wishlistBadge.style.display = wishlistCount > 0 ? 'flex' : 'none';
+
+    // Sync mobile bottom navigation badges
+    const mobCartBadge = document.getElementById('mob-cart-badge');
+    if (mobCartBadge) {
+      mobCartBadge.textContent = cartCount;
+      mobCartBadge.style.display = cartCount > 0 ? 'flex' : 'none';
+    }
+
+    const mobWishlistBadge = document.getElementById('mob-wishlist-badge');
+    if (mobWishlistBadge) {
+      mobWishlistBadge.textContent = wishlistCount;
+      mobWishlistBadge.style.display = wishlistCount > 0 ? 'flex' : 'none';
+    }
   }
 
   // ================= Categories Bar & Filter =================
@@ -1238,6 +1251,48 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnMobileFilter) btnMobileFilter.addEventListener('click', openMobileFilter);
     if (btnCloseFilterMobile) btnCloseFilterMobile.addEventListener('click', closeMobileFilter);
     if (filterBackdrop) filterBackdrop.addEventListener('click', closeMobileFilter);
+
+    // Mobile Bottom Navigation Bar Events
+    const mobNavHome = document.getElementById('mob-nav-home');
+    const mobNavFilter = document.getElementById('mob-nav-filter');
+    const mobNavWishlist = document.getElementById('mob-nav-wishlist');
+    const mobNavCart = document.getElementById('mob-nav-cart');
+    const mobNavAccount = document.getElementById('mob-nav-account');
+
+    if (mobNavHome) {
+      mobNavHome.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    if (mobNavFilter) {
+      mobNavFilter.addEventListener('click', (e) => {
+        e.preventDefault();
+        openMobileFilter();
+      });
+    }
+
+    if (mobNavWishlist) {
+      mobNavWishlist.addEventListener('click', (e) => {
+        e.preventDefault();
+        DOM.wishlistBtn.click();
+      });
+    }
+
+    if (mobNavCart) {
+      mobNavCart.addEventListener('click', (e) => {
+        e.preventDefault();
+        openCartDrawer();
+      });
+    }
+
+    if (mobNavAccount) {
+      mobNavAccount.addEventListener('click', (e) => {
+        e.preventDefault();
+        DOM.userBtn.click();
+      });
+    }
 
     // Product Card Delegation
     DOM.productGrid.addEventListener('click', (e) => {
