@@ -1212,7 +1212,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Reset Filters Button
-    DOM.btnResetFilters.addEventListener('click', resetAllFilters);
+    DOM.btnResetFilters.addEventListener('click', () => {
+      resetAllFilters();
+      closeMobileFilter();
+    });
+
+    // Mobile Filter Drawer Toggle & Backdrop
+    const btnMobileFilter = document.getElementById('btn-mobile-filter');
+    const filterSidebar = document.getElementById('filter-sidebar');
+    const filterBackdrop = document.getElementById('filter-backdrop');
+    const btnCloseFilterMobile = document.getElementById('btn-close-filter-mobile');
+
+    function openMobileFilter() {
+      if (filterSidebar) filterSidebar.classList.add('mobile-open');
+      if (filterBackdrop) filterBackdrop.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileFilter() {
+      if (filterSidebar) filterSidebar.classList.remove('mobile-open');
+      if (filterBackdrop) filterBackdrop.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    if (btnMobileFilter) btnMobileFilter.addEventListener('click', openMobileFilter);
+    if (btnCloseFilterMobile) btnCloseFilterMobile.addEventListener('click', closeMobileFilter);
+    if (filterBackdrop) filterBackdrop.addEventListener('click', closeMobileFilter);
 
     // Product Card Delegation
     DOM.productGrid.addEventListener('click', (e) => {
